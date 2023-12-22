@@ -2,15 +2,33 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>An eleventy blog</title>
+        <title>An eleventy blog, with knitr</title>
+
+        <!-- syntax highlighting --> 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+
+        <!-- font -->
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+        <!-- skeleton template -->
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/skeleton.css">
     </head>
+    
+    <!-- post body -->
     <body>
-        <a href="/">(home)</a>
+        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+            <div class = "row">
+                <a class="button" href="/">Home</a>
+                <a class="button" href="https://github.com/djnavarro/knitr-11ty">GitHub Page</a>
+                <a class="button" href="https://djnavarro.net">Danielle's Home Page</a>
+            </div>
+        </div>
 
-        <h1>{{ pageTitle }}</h1>
+        <div class="container">
+            <h1>{{ pageTitle }}</h1>
 
-        {{ content }}
-
+            {{ content }}
+        </div>
     </body>
 </html>

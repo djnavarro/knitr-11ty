@@ -5,6 +5,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("normalize.css");
   eleventyConfig.addPassthroughCopy("skeleton.css");
   eleventyConfig.addPassthroughCopy(".nojekyll");
+  eleventyConfig.addPassthroughCopy("CNAME");
 
   return {
     dir: {

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>An eleventy blog, with knitr</title>
+
+        <!-- syntax highlighting --> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+
+        <!-- font -->
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+        <!-- skeleton template -->
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/skeleton.css">
+    </head>
+    
+    <!-- post body -->
+    <body>
+        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+            <div class = "row">
+                <a class="button" href="/">Home</a>
+                <a class="button" href="https://github.com/djnavarro/knitr-11ty">GitHub Page</a>
+                <a class="button" href="https://djnavarro.net">Danielle's Home Page</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <h1>A post you have to knit first</h1>
+
+            <p>For no particular reason I've decided to use <code>.kmd</code> as the file extension (&quot;knitr markdown&quot;). Much like R markdown it uses knitr to render the code chunks to a knitted markdown file, but it's not actually R markdown so I don't want to use <code>.Rmd</code> or whatever.</p>
+<pre class="language-r"><code class="language-r">add_one <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    x <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+add_one<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span></code></pre>
+<pre><code>## [1] 11
+</code></pre>
+<p>Eleventy doesn't process the <code>.kmd</code> file, but it will process the <code>.md</code> file that gets created when I call knitr on this.</p>
+
+        </div>
+    </body>
+</html>

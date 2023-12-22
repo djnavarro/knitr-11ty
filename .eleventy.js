@@ -4,4 +4,11 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addPassthroughCopy("normalize.css");
   eleventyConfig.addPassthroughCopy("skeleton.css");
+  eleventyConfig.addPassthroughCopy(".nojekyll");
+
+  return {
+    dir: {
+      output: "docs"
+    }
+  }
 };

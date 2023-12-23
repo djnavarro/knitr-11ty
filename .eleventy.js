@@ -12,8 +12,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy(".nojekyll");
   eleventyConfig.addPassthroughCopy("CNAME");
 
-  // pass through for png files preserving directory structure
-  eleventyConfig.addPassthroughCopy("**/*.png");
+  // pass through for png files in posts, preserving directory structure
+  eleventyConfig.addPassthroughCopy("posts/**/*.png");
 
   // configure the output directory
   return {

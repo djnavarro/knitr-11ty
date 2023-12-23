@@ -11,6 +11,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("skeleton.css");
   eleventyConfig.addPassthroughCopy(".nojekyll");
   eleventyConfig.addPassthroughCopy("CNAME");
+  eleventyConfig.addPassthroughCopy("preview.jpg");
 
   // pass through for png files in posts, preserving directory structure
   eleventyConfig.addPassthroughCopy("posts/**/*.png");

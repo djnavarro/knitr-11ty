@@ -1,12 +1,12 @@
 ---
 layout: layout.liquid
-pageTitle: An eleventy blog with knitr
+title: An eleventy blog with knitr
 ---
 
 <ul>
 {% for post in collections.posts reversed %}
     <li>
-        <a href="{{ post.url }}">{{ post.data.pageTitle }}</a>
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
         <small>({{ post.date | date: "%Y-%m-%d" }})</small>
     </li>
 {% endfor %}

@@ -1,5 +1,7 @@
 ---
-pageTitle: The project changelog
+title: The project changelog
+subtitle: It's where we list things!
+date: 2023-12-23
 ---
 
 This is a plain markdown post. Also serves as an informal changelog for this project:
@@ -13,3 +15,4 @@ This is a plain markdown post. Also serves as an informal changelog for this pro
 - Seventh step was to rejig the blog so that each post is a subfolder rather than a single file. The blog I set up from the tutorial uses a single file per post, and eleventy writes `posts/my-blog-post.md` to `_site/posts/my-blog-post/index.html` (or in this case `docs` not `_site`). That's convenient if the whole blog post is just a single markdown file but it won't work in the knitr context because we need the `.kmd` file (knitr markdown), the rendered `.md` file, and any images knitr creates to be grouped together. For the images in particular it's important that we preserve the directory structure or else everything breaks. Fortunately this is easy: you just create the desired folder structure and rename the files to "index". So now I have `posts/my-blog-post/index.md` as the markdown, and eleventy will also write that to `_site/posts/my-blog-post/index.html`.
 - Eighth step was to make sure that we have a passthrough rule that ensures that the knitr-generated png files are copied to the output, so we now update the `.eleventy.js` file to create a rule for png files
 - Ninth step was to write a simple `render.sh` shell script that calls `knitr::knit()` to render a post from `.kmd` to `.md`. After a little bit of thought I decided that since (a) eleventy is very fast at rebuilding the website and (b) I've had bad experiences with tools that "automatically" decide when to re-render a source document, it makes sense not to automate the knit process for this toy project
+- Tenth step was to edit the template to allow (minimal) support of social media tags

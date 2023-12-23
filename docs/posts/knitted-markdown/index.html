@@ -2,7 +2,18 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>An eleventy blog, with knitr</title>
+        <title>An eleventy blog with knitr</title>
+
+        <!-- social media tags -->
+        <meta property="og:title" content="A knitr-markdown post">
+        <meta property="og:description" content="It's kind of like R markdown but so much worse">
+        <meta property="og:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
+        <meta property="og:site-name" content="An eleventy blog with knitr">
+        <meta name="twitter:title" content="A knitr-markdown post">
+        <meta name="twitter:description" content="It's kind of like R markdown but so much worse">
+        <meta name="twitter:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
+        <meta name="twitter:creator" content="@djnavarro">
+        <meta name="twitter:card" content="summary_large_image">
 
         <!-- syntax highlighting --> 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
@@ -17,6 +28,8 @@
     
     <!-- post body -->
     <body>
+
+        <!-- navigation buttons -->
         <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
             <div class = "row">
                 <a class="button" href="/">Home</a>
@@ -25,9 +38,17 @@
             </div>
         </div>
 
-        <div class="container">
+        <!-- post front matter -->
+        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
             <h1>A knitr-markdown post</h1>
+            <p>
+                <i>It's kind of like R markdown but so much worse</i><br>
+                <i>2023-12-23</i>
+            </p>
+        </div>
 
+        <!-- post content -->
+        <div class="container">
             <p>This is a &quot;knitr-markdown&quot; blog post. For no particular reason I've decided to use <code>.kmd</code> as the file extension (&quot;knitr markdown&quot;). Much like R markdown it uses knitr to render the code chunks to a knitted markdown file, but it's not actually R markdown so I don't want to use <code>.Rmd</code> or whatever.</p>
 <pre class="language-r"><code class="language-r">add_one <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     x <span class="token operator">+</span> <span class="token number">1</span>

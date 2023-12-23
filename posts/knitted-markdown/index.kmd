@@ -1,5 +1,7 @@
 ---
-pageTitle: A knitr-markdown post
+title: A knitr-markdown post
+subtitle: It's kind of like R markdown but so much worse
+date: 2023-12-23
 ---
 
 This is a "knitr-markdown" blog post. For no particular reason I've decided to use `.kmd` as the file extension ("knitr markdown"). Much like R markdown it uses knitr to render the code chunks to a knitted markdown file, but it's not actually R markdown so I don't want to use `.Rmd` or whatever. 

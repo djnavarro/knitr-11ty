@@ -2,7 +2,18 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>An eleventy blog, with knitr</title>
+        <title>An eleventy blog with knitr</title>
+
+        <!-- social media tags -->
+        <meta property="og:title" content="{{ title }}">
+        <meta property="og:description" content="{{ subtitle }}">
+        <meta property="og:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
+        <meta property="og:site-name" content="An eleventy blog with knitr">
+        <meta name="twitter:title" content="{{ title }}">
+        <meta name="twitter:description" content="{{ subtitle }}">
+        <meta name="twitter:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
+        <meta name="twitter:creator" content="@djnavarro">
+        <meta name="twitter:card" content="summary_large_image">
 
         <!-- syntax highlighting --> 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
@@ -17,6 +28,8 @@
     
     <!-- post body -->
     <body>
+
+        <!-- navigation buttons -->
         <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
             <div class = "row">
                 <a class="button" href="/">Home</a>
@@ -25,9 +38,17 @@
             </div>
         </div>
 
-        <div class="container">
-            <h1>{{ pageTitle }}</h1>
+        <!-- post front matter -->
+        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+            <h1>{{ title }}</h1>
+            <p>
+                <i>{{ subtitle }}</i><br>
+                <i>{{ date | date: "%Y-%m-%d" }}</i>
+            </p>
+        </div>
 
+        <!-- post content -->
+        <div class="container">
             {{ content }}
         </div>
     </body>

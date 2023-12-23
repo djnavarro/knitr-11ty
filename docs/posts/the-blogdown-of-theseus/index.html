@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>An eleventy blog with knitr</title>
+
+        <!-- social media tags -->
+        <meta property="og:title" content="The blogdown of theseus">
+        <meta property="og:description" content="Because you know what? I *am* here to fuck spiders">
+        <meta property="og:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
+        <meta property="og:site-name" content="An eleventy blog with knitr">
+        <meta name="twitter:title" content="The blogdown of theseus">
+        <meta name="twitter:description" content="Because you know what? I *am* here to fuck spiders">
+        <meta name="twitter:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
+        <meta name="twitter:creator" content="@djnavarro">
+        <meta name="twitter:card" content="summary_large_image">
+
+        <!-- syntax highlighting --> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+
+        <!-- font -->
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+        <!-- skeleton template -->
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/skeleton.css">
+    </head>
+    
+    <!-- post body -->
+    <body>
+
+        <!-- navigation buttons -->
+        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+            <div class = "row">
+                <a class="button" href="/">Home</a>
+                <a class="button" href="https://github.com/djnavarro/knitr-11ty">GitHub Page</a>
+                <a class="button" href="https://djnavarro.net">Danielle's Home Page</a>
+            </div>
+        </div>
+
+        <!-- post front matter -->
+        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+            <h1>The blogdown of theseus</h1>
+            <p>
+                <b>Because you know what? I *am* here to fuck spiders</b><br>
+                <b>2023-12-23</b>
+            </p>
+        </div>
+
+        <!-- post content -->
+        <div class="container">
+            <p>It is the first day of my summer vacation. The out-of-office autoreply is on. I have a full tank of gas, half a pack of cigarettes, the sun is shining, and I'm wearing a sequined dress. Blues Brothers it is most certainly not, but a certain attitude is in force. And so it is that I've decided to get the band back together. Where &quot;the band&quot; in this case happens to be &quot;a tool chain that looks like a shit version of <a href="https://pkgs.rstudio.com/blogdown/">blogdown</a>&quot;.</p>
+<p>Is it a good use of my time? No. Will I do a good job of it? No. But will it it make a good blog post? Also no.</p>
+<p>Okay. So here's the backstory. Literate programming in R has been around for a very long time. So much so that we've all become accustomed to thinking about tools like <a href="https://rmarkdown.rstudio.com/">R markdown</a>, <a href="https://pkgs.rstudio.com/blogdown/">blogdown</a>, and <a href="https://quarto.org/">quarto</a>, as baked-in aspects to the language. That's not actually a bad thing. They're good tools. I have no intention of abandoning any of them. But they aren't primitives. Each of them is an opinionated tool that takes a code execution engine like <a href="https://yihui.org/knitr/">knitr</a> as a starting point, and builds from it in different ways. R markdown and quarto both use knitr to execute the R code within an appropriately annotated markdown document and then feed the results to <a href="https://pandoc.org/">pandoc</a> to create outputs in different formats. Blogdown takes the same idea, but passes the output to the <a href="https://gohugo.io/">hugo</a> static site generator to create full featured blogs and static websites. Et cetera.</p>
+<p>What would happen if those &quot;upstream&quot; tools were taken away? What if you needed to create an R blog from scratch and the only part of this tool chain you had available to you was knitr. What choices would you make? Could you cobble together something vaguely similar to a blogdown site or a quarto blog, using entirely different constituent parts?</p>
+<p>Why would you do this? You wouldn't.</p>
+<p>Why did I do it? Because it's summer and <strong>I'm bored</strong>.</p>
+<h2>The task</h2>
+<p>So here's what I decided to do. Create a static website blog where:</p>
+<ul>
+<li>You write posts using a slightly fancy version of <a href="https://www.markdownguide.org/">markdown</a></li>
+<li>The code chunks within a post are executed using <a href="https://yihui.org/knitr/">knitr</a></li>
+<li>The static site is build using <a href="https://www.11ty.dev/">eleventy</a></li>
+<li>The styling of the pages is handled with <a href="http://getskeleton.com/">skeleton</a></li>
+</ul>
+<p>Most importantly, I committed myself to following the <a href="https://www.youtube.com/watch?v=1i739SyCu9I">Bob Katter principle</a>:</p>
+<blockquote>
+<p><em>I ain't spending any time on it, because in the meantime, every three months a person's torn to pieces by a crocodile in North Queensland</em></p>
+</blockquote>
+<p>Wise words Bob. Let's get this done in an afternoon, yeah?</p>
+<h2>Code execution with knitr</h2>
+<p>Here's the idea. This post is written in what I'm calling &quot;knitr-flavoured markdown&quot;, and the basic idea is so similar to R markdown that it'd be plagiarism for me to pretend I was doing anything novel. There's a <a href="https://yaml.org/">YAML</a> header at the top of the document, and the code chunks that I want to execute have the annotations that knitr expects to see. Other than that, it's just markdown. Nothing special.</p>
+<p>Like a normal markdown document, I use triple backticks to denote a code block. Moreover, since syntax highlighting is supported, I can write something like this in the source document...</p>
+<pre class="language-default"><code class="language-default">```r
+add_one <- function(x) x + 1
+add_one(10)
+```</code></pre>
+<p>and the output will look like this:</p>
+<pre class="language-r"><code class="language-r">add_one <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> x <span class="token operator">+</span> <span class="token number">1</span>
+add_one<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span></code></pre>
+<p>Most importantly, the blog supports code execution. When I write this in my source document...</p>
+<pre class="language-default"><code class="language-default">```{r}
+add_one <- function(x) x + 1
+add_one(10)
+```</code></pre>
+<p>The code is executed by knitr and the output appears beneath the code block:</p>
+<pre class="language-r"><code class="language-r">add_one <span class="token operator">&lt;-</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> x <span class="token operator">+</span> <span class="token number">1</span>
+add_one<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span></code></pre>
+<pre><code>## [1] 11
+</code></pre>
+<p>Better yet, it supports plot output:</p>
+<pre class="language-r"><code class="language-r">library<span class="token punctuation">(</span>ggplot2<span class="token punctuation">)</span>
+set.seed<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+df <span class="token operator">&lt;-</span> data.frame<span class="token punctuation">(</span>
+  x <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  y <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  size <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  shade <span class="token operator">=</span> sample<span class="token punctuation">(</span>colours<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+ggplot<span class="token punctuation">(</span>df<span class="token punctuation">,</span> aes<span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> size <span class="token operator">=</span> size<span class="token punctuation">,</span> colour <span class="token operator">=</span> shade<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+  geom_point<span class="token punctuation">(</span>show.legend <span class="token operator">=</span> <span class="token boolean">FALSE</span><span class="token punctuation">,</span> pch <span class="token operator">=</span> <span class="token number">1</span> <span class="token punctuation">,</span> stroke <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span> 
+  scale_size<span class="token punctuation">(</span>range <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> 
+  theme_void<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<div class="figure" style="text-align: center">
+<img src="figure/make-a-plot-1.png" alt="plot of chunk make-a-plot" width="60%" />
+<p class="caption">plot of chunk make-a-plot</p>
+</div>
+<p>Neat.</p>
+<h2>From source code to the built HTML</h2>
+<p>So how does this work? From the perspective of knitr, everything takes place within the folder that contains the &quot;knitr flavoured markdown&quot; document. To distinguish this source document from the knitr output the knitr-flavoured markdown file has a <code>.kmd</code> file extension, whereas the plain markdown produces as output has a <code>.md</code> file extension. Here's everything that exists within the post folder:</p>
+<pre class="language-r"><code class="language-r"> fs<span class="token operator">::</span>dir_tree<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<pre><code>## .
+## ├── figure
+## │   └── make-a-plot-1.png
+## ├── index.kmd
+## └── index.md
+</code></pre>
+<p>The <strong>only</strong> thing I edit myself is the <code>.kmd</code> file. From my perspective as the coder/blogger/whatever that's my source code. This is fundamentally no different to the way that R markdown treats the <code>.Rmd</code> file as the source, or how quarto treats the <code>.qmd</code> file as the source. This is hardly surprising. This supposed &quot;kmd&quot; file format isn't really anything new, and the only reason I bothered to give it a new file extension is that I wanted to keep it clear in my head that the YAML header in the <code>.kmd</code> file exists to support eleventy (not pandoc), and that my &quot;kmd&quot; format is much more bare-bones than either &quot;Rmd&quot; or &quot;qmd&quot;.</p>
+<p>Anyway, let's look at what happens when I use <code>knitr::knit()</code> to render this file. The primary output file is the <code>.md</code> file, which retains all the original markdown from the <code>.kmd</code> file, but executes the R code chunks within the file and creates additional markup within the <code>.md</code> file so that -- when later converted to HTML -- the resulting web page will display the output exactly as if the commands were typed at the R console. However, because this post also contains R code that generates a plot, knitr creates a <code>.png</code> file within the <code>figure</code> folder, and includes markup that links to that <code>.png</code> file.</p>
+<p>And with that, knitr has no further role to play. For any given post, knitr only acts within the corresponding post folder. It has created the <code>.md</code> file and the <code>.png</code> file, and it's done. The baton is passed over to eleventy, and as far as eleventy is concerned, the <code>.kmd</code> file is irrelevant. When creating the HTML output, eleventy looks only at the <code>.md</code> file and the <code>.png</code> file.</p>
+<p>So what happens when eleventy builds the static site? To get a &quot;global&quot; overview, let's take a look at the structure of the blog project, showing only the folders:</p>
+<pre class="language-r"><code class="language-r"> fs<span class="token operator">::</span>dir_tree<span class="token punctuation">(</span><span class="token string">"../.."</span><span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token string">"directory"</span><span class="token punctuation">)</span></code></pre>
+<pre><code>## ../..
+## ├── _includes
+## ├── docs
+## │   └── posts
+## │       ├── changelog
+## │       ├── hello-changelog
+## │       ├── knitted-markdown
+## │       ├── the-blogdown-of-theseus
+## │       │   └── figure
+## │       └── the-changelog
+## └── posts
+##     ├── hello-changelog
+##     ├── knitted-markdown
+##     └── the-blogdown-of-theseus
+##         └── figure
+</code></pre>
+<p>The core structure is very simple:</p>
+<ul>
+<li>There's a <code>posts</code> folder that contains one subfolder for each post in the blog. That's where all the markdown files live, and it's also where knitr renders its output. From the perspective of the eleventy static site generator, that's our source folder</li>
+<li>There's a <code>docs</code> folder that also contains one subfolder for each post. This one is where all the HTML files, CSS files, etc go. That's the built site that gets deployed to GitHub Pages.</li>
+</ul>
+<p>To illustrate the difference between the two, let's compare the contents of the source folder for this post (which we saw in the last section) to the corresponding folder in the built site:</p>
+<pre class="language-r"><code class="language-r"> fs<span class="token operator">::</span>dir_tree<span class="token punctuation">(</span><span class="token string">"../../docs/posts/the-blogdown-of-theseus"</span><span class="token punctuation">)</span></code></pre>
+<pre><code>## ../../docs/posts/the-blogdown-of-theseus
+## ├── figure
+## │   └── make-a-plot-1.png
+## └── index.html
+</code></pre>
+<p>This is what eleventy does to each of the files in the post folder:</p>
+<ul>
+<li>The <code>.png</code> file gets copied to the output as-is</li>
+<li>The <code>.kmd</code> file is ignored completely</li>
+<li>The <code>.md</code> file is converted to the <code>.html</code> page</li>
+</ul>
+<p>There's a tiny bit of fanciness required to configure eleventy in a way that plays this nicely with knitr, but only a tiny bit. I'll come back to it later but seriously it was way easier than I thought it was going to be.</p>
+
+        </div>
+    </body>
+</html>

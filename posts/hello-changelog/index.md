@@ -1,6 +1,6 @@
 ---
-title: The project changelog
-subtitle: It's where we list things!
+title: Hello, it's a plain markdown changelog
+subtitle: It's a plain markdown post. It's a hello world! It's a changelog! Is there anything this post can't do? Well, yes. Quite a lot
 date: 2023-12-23
 ---
 

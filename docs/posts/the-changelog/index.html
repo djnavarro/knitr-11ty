@@ -5,12 +5,12 @@
         <title>An eleventy blog with knitr</title>
 
         <!-- social media tags -->
-        <meta property="og:title" content="">
-        <meta property="og:description" content="">
+        <meta property="og:title" content="The project changelog">
+        <meta property="og:description" content="It's where we list things!">
         <meta property="og:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
         <meta property="og:site-name" content="An eleventy blog with knitr">
-        <meta name="twitter:title" content="">
-        <meta name="twitter:description" content="">
+        <meta name="twitter:title" content="The project changelog">
+        <meta name="twitter:description" content="It's where we list things!">
         <meta name="twitter:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
         <meta name="twitter:creator" content="@djnavarro">
         <meta name="twitter:card" content="summary_large_image">
@@ -40,16 +40,16 @@
 
         <!-- post front matter -->
         <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
-            <h1></h1>
+            <h1>The project changelog</h1>
             <p>
-                <b></b><br>
-                <b></b>
+                <b>It's where we list things!</b><br>
+                <b>2023-12-23</b>
             </p>
         </div>
 
         <!-- post content -->
         <div class="container">
-            <p>This is also a plain markdown post. Also serves as an informal changelog for this project:</p>
+            <p>This is a plain markdown post. Also serves as an informal changelog for this project:</p>
 <ul>
 <li>First step was installing eleventy via npm and following this minimal <a href="https://www.filamentgroup.com/lab/build-a-blog/">tutorial</a>. At this point I created a minimal <code>layout.liquid</code> file, some <code>.md</code> files in a <code>posts</code> folder, and <code>index.html</code> file in the root folder to create the index page, and a <code>posts.json</code> file in the posts folder to ensure that everything in the <code>posts</code> folder is automatically given a &quot;posts&quot; tag</li>
 <li>Second step was installing the eleventy <a href="https://www.11ty.dev/docs/plugins/syntaxhighlight/">syntax highlighting</a> plugin and adding it to the <code>.eleventy.js</code> configuration file in the project root folder. To get it working you also need to modify the template in the <code>layout.liquid</code> file so that it loads the PrismJS syntax highlighting JS from your favourite CDN. Once that was complete, code blocks show syntax highlighting but of course they do not execute.</li>
@@ -59,6 +59,8 @@
 <li>Sixth step was to set it up to deploy to github pages. The <a href="https://www.11ty.dev/docs/config/#output-directory">output directory</a> needs to go to <code>docs</code> rather than <code>_site</code>, and we need to ensure that eleventy ignores the <code>docs</code> folder. Also need <code>.nojekyll</code> and <code>CNAME</code> files with a passthrough so it ends up in the <code>docs</code> folder, and setup the CNAME resource record for the subdomain <a href="https://knitr-11ty.djnavarro.net">knitr-11ty.djnavarro.net</a> so that it deploys correctly. In this instance I'm deploying to the root of a subdomain so I don't have to bother with this but if you're <a href="https://www.11ty.dev/docs/config/#deploy-to-a-subdirectory-with-a-path-prefix">deploying to a subdirectory</a> you need to set a path prefix</li>
 <li>Seventh step was to rejig the blog so that each post is a subfolder rather than a single file. The blog I set up from the tutorial uses a single file per post, and eleventy writes <code>posts/my-blog-post.md</code> to <code>_site/posts/my-blog-post/index.html</code> (or in this case <code>docs</code> not <code>_site</code>). That's convenient if the whole blog post is just a single markdown file but it won't work in the knitr context because we need the <code>.kmd</code> file (knitr markdown), the rendered <code>.md</code> file, and any images knitr creates to be grouped together. For the images in particular it's important that we preserve the directory structure or else everything breaks. Fortunately this is easy: you just create the desired folder structure and rename the files to &quot;index&quot;. So now I have <code>posts/my-blog-post/index.md</code> as the markdown, and eleventy will also write that to <code>_site/posts/my-blog-post/index.html</code>.</li>
 <li>Eighth step was to make sure that we have a passthrough rule that ensures that the knitr-generated png files are copied to the output, so we now update the <code>.eleventy.js</code> file to create a rule for png files</li>
+<li>Ninth step was to write a simple <code>render.sh</code> shell script that calls <code>knitr::knit()</code> to render a post from <code>.kmd</code> to <code>.md</code>. After a little bit of thought I decided that since (a) eleventy is very fast at rebuilding the website and (b) I've had bad experiences with tools that &quot;automatically&quot; decide when to re-render a source document, it makes sense not to automate the knit process for this toy project</li>
+<li>Tenth step was to edit the template to allow (minimal) support of social media tags</li>
 </ul>
 
         </div>

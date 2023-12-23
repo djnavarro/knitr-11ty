@@ -5,11 +5,11 @@
         <title>An eleventy blog with knitr</title>
 
         <!-- social media tags -->
-        <meta property="og:title" content="A knitr-markdown post">
+        <meta property="og:title" content="A knitr-flavoured markdown post">
         <meta property="og:description" content="It's kind of like R markdown but so much worse">
         <meta property="og:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
         <meta property="og:site-name" content="An eleventy blog with knitr">
-        <meta name="twitter:title" content="A knitr-markdown post">
+        <meta name="twitter:title" content="A knitr-flavoured markdown post">
         <meta name="twitter:description" content="It's kind of like R markdown but so much worse">
         <meta name="twitter:image" content="https://knitr-11ty.djnavarro.net/preview.jpg">
         <meta name="twitter:creator" content="@djnavarro">
@@ -40,7 +40,7 @@
 
         <!-- post front matter -->
         <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
-            <h1>A knitr-markdown post</h1>
+            <h1>A knitr-flavoured markdown post</h1>
             <p>
                 <b>It's kind of like R markdown but so much worse</b><br>
                 <b>2023-12-23</b>
@@ -56,36 +56,7 @@
 add_one<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span></code></pre>
 <pre><code>## [1] 11
 </code></pre>
-<p>Eleventy doesn't process the <code>.kmd</code> file, but it will process the <code>.md</code> file that gets created when I call knitr on this.</p>
-<p>Let's have a look at plots generated with R</p>
-<pre class="language-r"><code class="language-r">set.seed<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-df <span class="token operator">&lt;-</span> data.frame<span class="token punctuation">(</span>
-  x <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  y <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  size <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">5</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  shade <span class="token operator">=</span> sample<span class="token punctuation">(</span>colours<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span>
-op <span class="token operator">&lt;-</span> par<span class="token punctuation">(</span>
-  mar <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  bg <span class="token operator">=</span> <span class="token string">"black"</span>
-<span class="token punctuation">)</span>
-with<span class="token punctuation">(</span>
-  df<span class="token punctuation">,</span> 
-  plot<span class="token punctuation">(</span>
-    x <span class="token operator">=</span> x<span class="token punctuation">,</span> 
-    y <span class="token operator">=</span> y<span class="token punctuation">,</span> 
-    col <span class="token operator">=</span> shade<span class="token punctuation">,</span> 
-    axes <span class="token operator">=</span> <span class="token boolean">FALSE</span><span class="token punctuation">,</span> 
-    cex <span class="token operator">=</span> size<span class="token punctuation">,</span>
-    xlab <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span> 
-    ylab <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span>
-    pch <span class="token operator">=</span> <span class="token number">19</span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">)</span></code></pre>
-<div class="figure">
-<img src="figure/make-a-plot-1.png" alt="plot of chunk make-a-plot" width="100%" />
-<p class="caption">plot of chunk make-a-plot</p>
-</div>
+<p>Eleventy doesn't process the <code>.kmd</code> file, but it will process the <code>.md</code> file that gets created when I call knitr on this. Handling plot outputs is slightly more complicated, because it requires a lot more care in managing the knitr/eleventy interaction. I'll discuss that in the main post.</p>
 
         </div>
     </body>

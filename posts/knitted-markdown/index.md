@@ -1,5 +1,5 @@
 ---
-pageTitle: A post you have to knit first
+pageTitle: A knitr-markdown post
 ---
 
 For no particular reason I've decided to use `.kmd` as the file extension ("knitr markdown"). Much like R markdown it uses knitr to render the code chunks to a knitted markdown file, but it's not actually R markdown so I don't want to use `.Rmd` or whatever. 

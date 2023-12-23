@@ -2,7 +2,7 @@
 pageTitle: The project changelog
 ---
 
-This is also a plain markdown post. Also kind of serves as my changelog for this project:
+This is a plain markdown post. Also serves as an informal changelog for this project:
 
 - First step was installing eleventy via npm and following this minimal [tutorial](https://www.filamentgroup.com/lab/build-a-blog/). At this point I created a minimal `layout.liquid` file, some `.md` files in a `posts` folder, and `index.html` file in the root folder to create the index page, and a `posts.json` file in the posts folder to ensure that everything in the `posts` folder is automatically given a "posts" tag 
 - Second step was installing the eleventy [syntax highlighting](https://www.11ty.dev/docs/plugins/syntaxhighlight/) plugin and adding it to the `.eleventy.js` configuration file in the project root folder. To get it working you also need to modify the template in the `layout.liquid` file so that it loads the PrismJS syntax highlighting JS from your favourite CDN. Once that was complete, code blocks show syntax highlighting but of course they do not execute.

@@ -36,6 +36,35 @@ add_one<span class="token punctuation">(</span><span class="token number">10</sp
 <pre><code>## [1] 11
 </code></pre>
 <p>Eleventy doesn't process the <code>.kmd</code> file, but it will process the <code>.md</code> file that gets created when I call knitr on this.</p>
+<p>Let's have a look at plots generated with R</p>
+<pre class="language-r"><code class="language-r">set.seed<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+df <span class="token operator">&lt;-</span> data.frame<span class="token punctuation">(</span>
+  x <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  y <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  size <span class="token operator">=</span> sample<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">:</span><span class="token number">5</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  shade <span class="token operator">=</span> sample<span class="token punctuation">(</span>colours<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> size <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">,</span> replace <span class="token operator">=</span> <span class="token boolean">TRUE</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+op <span class="token operator">&lt;-</span> par<span class="token punctuation">(</span>
+  mar <span class="token operator">=</span> c<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  bg <span class="token operator">=</span> <span class="token string">"black"</span>
+<span class="token punctuation">)</span>
+with<span class="token punctuation">(</span>
+  df<span class="token punctuation">,</span> 
+  plot<span class="token punctuation">(</span>
+    x <span class="token operator">=</span> x<span class="token punctuation">,</span> 
+    y <span class="token operator">=</span> y<span class="token punctuation">,</span> 
+    col <span class="token operator">=</span> shade<span class="token punctuation">,</span> 
+    axes <span class="token operator">=</span> <span class="token boolean">FALSE</span><span class="token punctuation">,</span> 
+    cex <span class="token operator">=</span> size<span class="token punctuation">,</span>
+    xlab <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span> 
+    ylab <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">,</span>
+    pch <span class="token operator">=</span> <span class="token number">19</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">)</span></code></pre>
+<div class="figure">
+<img src="figure/make-a-plot-1.png" alt="plot of chunk make-a-plot" width="100%" />
+<p class="caption">plot of chunk make-a-plot</p>
+</div>
 
         </div>
     </body>

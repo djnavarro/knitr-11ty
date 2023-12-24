@@ -9,6 +9,7 @@ module.exports = function(eleventyConfig) {
   // pass through for individual site files
   eleventyConfig.addPassthroughCopy("normalize.css");
   eleventyConfig.addPassthroughCopy("skeleton.css");
+  eleventyConfig.addPassthroughCopy("tweaks.css");
   eleventyConfig.addPassthroughCopy(".nojekyll");
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy("preview.jpg");

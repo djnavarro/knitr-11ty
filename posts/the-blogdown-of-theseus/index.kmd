@@ -180,7 +180,7 @@ Let's have a look at every single file that exists in the project that is *not* 
 
 None of these files end up in the output directory (in my case `docs`) when the site gets built. They're used to control *how* the site is built but they are not included in the output. In contrast, there are several static files in the root folder that aren't part of the configuration, but must be copied into the `docs` folder at build time to ensure that the html documents render correctly and that the site deploys correctly on GitHub pages:
 
-- `normalize.css` and `skeleton.css` are my style files. Those need to be loaded by every html page
+- `normalize.css`, `skeleton.css`, and `tweaks.css` css files loaded by every html page
 - `preview.jpg` is used as the social media preview image and also appears on the home page
 - `CNAME` is used so that GitHub Pages can deploy the site to the specific subdomain of my website
 - `.nojekyll` is there to prevent GitHub Pages from interpreting my site as a Jekyll static site
@@ -213,7 +213,7 @@ In my `_includes` folder there is a single template file called `layout.liquid`,
     <body>
 
         <!-- navigation buttons -->
-        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+        <div class = "container u-pad-2">
             <div class = "row">
                 <a class="button" href="/">Home</a>
                 <a class="button" href="https://github.com/djnavarro/knitr-11ty">GitHub Page</a>
@@ -222,12 +222,13 @@ In my `_includes` folder there is a single template file called `layout.liquid`,
         </div>
 
         <!-- post front matter -->
-        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+        <div class = "container u-pad-2">
             <h1>{{ title }}</h1>
             <p>
-                <b>{{ subtitle }}</b><br>
-                <b>{{ date | date: "%Y-%m-%d" }}</b>
+            {{ subtitle }}<br>
+            {{ date | date: "%Y-%m-%d" }}
             </p>
+            <hr>
         </div>
 
         <!-- post content -->
@@ -337,6 +338,7 @@ module.exports = function(eleventyConfig) {
   // pass through for individual site files
   eleventyConfig.addPassthroughCopy("normalize.css");
   eleventyConfig.addPassthroughCopy("skeleton.css");
+  eleventyConfig.addPassthroughCopy("tweaks.css");
   eleventyConfig.addPassthroughCopy(".nojekyll");
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy("preview.jpg");
@@ -392,6 +394,7 @@ There are several lines in my eleventy configuration file that are used to speci
 // pass through for individual site files
 eleventyConfig.addPassthroughCopy("normalize.css");
 eleventyConfig.addPassthroughCopy("skeleton.css");
+eleventyConfig.addPassthroughCopy("tweaks.css");
 eleventyConfig.addPassthroughCopy(".nojekyll");
 eleventyConfig.addPassthroughCopy("CNAME");
 eleventyConfig.addPassthroughCopy("preview.jpg");

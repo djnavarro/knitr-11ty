@@ -1,0 +1,17 @@
+/* style tweaks I added for this blog */
+
+body {
+    font-family: Optima, Candara, Calibri, Arial, sans-serif;
+}
+code {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 85%;
+    border: 0
+}
+ul {
+    list-style: disc inside; 
+}
+.u-pad-2 {
+    padding-top: 2rem; 
+    padding-bottom: 2rem;
+}

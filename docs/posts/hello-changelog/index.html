@@ -22,19 +22,17 @@
         <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: { inlineMath: [['$', '$']] }});</script>
         
-        <!-- font -->
-        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-        <!-- skeleton template -->
+        <!-- css -->
         <link rel="stylesheet" href="/normalize.css">
         <link rel="stylesheet" href="/skeleton.css">
+        <link rel="stylesheet" href="/tweaks.css">
     </head>
     
     <!-- post body -->
     <body>
 
         <!-- navigation buttons -->
-        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+        <div class = "container u-pad-2">
             <div class = "row">
                 <a class="button" href="/">Home</a>
                 <a class="button" href="https://github.com/djnavarro/knitr-11ty">GitHub Page</a>
@@ -43,12 +41,13 @@
         </div>
 
         <!-- post front matter -->
-        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+        <div class = "container u-pad-2">
             <h1>Hello, it's a plain markdown changelog</h1>
             <p>
-                <b>It's a plain markdown post. It's a hello world! It's a changelog! Is there anything this post can't do? Well, yes. Quite a lot</b><br>
-                <b>2023-12-23</b>
+            It's a plain markdown post. It's a hello world! It's a changelog! Is there anything this post can't do? Well, yes. Quite a lot<br>
+            2023-12-23
             </p>
+            <hr>
         </div>
 
         <!-- post content -->
@@ -66,6 +65,7 @@
 <li>Ninth step was to write a simple <code>render.sh</code> shell script that calls <code>knitr::knit()</code> to render a post from <code>.kmd</code> to <code>.md</code>. After a little bit of thought I decided that since (a) eleventy is very fast at rebuilding the website and (b) I've had bad experiences with tools that &quot;automatically&quot; decide when to re-render a source document, it makes sense not to automate the knit process for this toy project</li>
 <li>Tenth step was to edit the template to allow (minimal) support of social media tags</li>
 <li>Eleventh step was to add mathjax support</li>
+<li>Twelfth step was to add <code>tweaks.css</code> to override skeleton defaults I didn't want</li>
 </ul>
 
         </div>

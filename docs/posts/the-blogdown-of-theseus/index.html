@@ -22,19 +22,17 @@
         <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: { inlineMath: [['$', '$']] }});</script>
         
-        <!-- font -->
-        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-        <!-- skeleton template -->
+        <!-- css -->
         <link rel="stylesheet" href="/normalize.css">
         <link rel="stylesheet" href="/skeleton.css">
+        <link rel="stylesheet" href="/tweaks.css">
     </head>
     
     <!-- post body -->
     <body>
 
         <!-- navigation buttons -->
-        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+        <div class = "container u-pad-2">
             <div class = "row">
                 <a class="button" href="/">Home</a>
                 <a class="button" href="https://github.com/djnavarro/knitr-11ty">GitHub Page</a>
@@ -43,12 +41,13 @@
         </div>
 
         <!-- post front matter -->
-        <div class = "container" style = "padding-top: 2rem; padding-bottom: 2rem;">
+        <div class = "container u-pad-2">
             <h1>The blogdown of theseus</h1>
             <p>
-                <b>Because you know what? I *am* here to fuck spiders</b><br>
-                <b>2023-12-23</b>
+            Because you know what? I *am* here to fuck spiders<br>
+            2023-12-23
             </p>
+            <hr>
         </div>
 
         <!-- post content -->
@@ -177,7 +176,7 @@ Rscript <span class="token parameter variable">-e</span> <span class="token stri
 </ul>
 <p>None of these files end up in the output directory (in my case <code>docs</code>) when the site gets built. They're used to control <em>how</em> the site is built but they are not included in the output. In contrast, there are several static files in the root folder that aren't part of the configuration, but must be copied into the <code>docs</code> folder at build time to ensure that the html documents render correctly and that the site deploys correctly on GitHub pages:</p>
 <ul>
-<li><code>normalize.css</code> and <code>skeleton.css</code> are my style files. Those need to be loaded by every html page</li>
+<li><code>normalize.css</code>, <code>skeleton.css</code>, and <code>tweaks.css</code> css files loaded by every html page</li>
 <li><code>preview.jpg</code> is used as the social media preview image and also appears on the home page</li>
 <li><code>CNAME</code> is used so that GitHub Pages can deploy the site to the specific subdomain of my website</li>
 <li><code>.nojekyll</code> is there to prevent GitHub Pages from interpreting my site as a Jekyll static site</li>
@@ -204,7 +203,7 @@ Rscript <span class="token parameter variable">-e</span> <span class="token stri
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
 
         <span class="token comment">&lt;!-- navigation buttons --></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>container<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">padding-top</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span> <span class="token property">padding-bottom</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>container u-pad-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>row<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
                 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Home<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
                 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://github.com/djnavarro/knitr-11ty<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>GitHub Page<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
@@ -213,12 +212,13 @@ Rscript <span class="token parameter variable">-e</span> <span class="token stri
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
 
         <span class="token comment">&lt;!-- post front matter --></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>container<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">padding-top</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span> <span class="token property">padding-bottom</span><span class="token punctuation">:</span> 2rem<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span> <span class="token attr-value"><span class="token punctuation attr-equals">=</span> <span class="token punctuation">"</span>container u-pad-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>{{ title }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token punctuation">></span></span>{{ subtitle }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token punctuation">></span></span>{{ date | date: "%Y-%m-%d" }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span>
+            {{ subtitle }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+            {{ date | date: "%Y-%m-%d" }}
             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>hr</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
 
         <span class="token comment">&lt;!-- post content --></span>
@@ -288,6 +288,7 @@ module<span class="token punctuation">.</span><span class="token function-variab
   <span class="token comment">// pass through for individual site files</span>
   eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"normalize.css"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"skeleton.css"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"tweaks.css"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">".nojekyll"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"CNAME"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"preview.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -322,6 +323,7 @@ module<span class="token punctuation">.</span><span class="token function-variab
 <pre class="language-js"><code class="language-js"><span class="token comment">// pass through for individual site files</span>
 eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"normalize.css"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"skeleton.css"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"tweaks.css"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">".nojekyll"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"CNAME"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 eleventyConfig<span class="token punctuation">.</span><span class="token function">addPassthroughCopy</span><span class="token punctuation">(</span><span class="token string">"preview.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

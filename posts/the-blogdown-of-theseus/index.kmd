@@ -61,7 +61,7 @@ That part is easy. The trickier part is desiging the site in the first place and
 
 Here's the idea. This post is written in what I'm calling "knitr-flavoured markdown". The basic idea is so similar to R markdown that it'd be plagiarism for me to pretend I was doing anything novel, but I can't actually call it R markdown because it lacks a lot of R markdown features, so I've used a `.kmd` file extension for my knitr-flavoured markdown documents.  
 
-Nevertheless, the core idea is essentially the same as R markdown. There's a [YAML](https://yaml.org/) header at the top of the document that is used by eleventy when building the site, and there are code chunks that have special annotations that knitr uses when handling the code execution. But other than that it's just a markdown document. Nothing special there. Like a normal markdown document, I use triple backticks to denote a code block. Moreover, since syntax highlighting is supported by eleventy (discussed later when I dive into the details), I can write something like this in the source document:
+Nevertheless, the core idea is essentially the same as R markdown. There's a [yaml](https://yaml.org/) header at the top of the document that is used by eleventy when building the site, and there are code chunks that have special annotations that knitr uses when handling the code execution. But other than that it's just a markdown document. Nothing special there. Like a normal markdown document, I use triple backticks to denote a code block. Moreover, since syntax highlighting is supported by eleventy (discussed later when I dive into the details), I can write something like this in the source document:
 
 ````{verbatim}
 ```r
@@ -104,14 +104,16 @@ Better yet, the blog supports plot output. As it turns out, this part of the pro
 #| out-width: 60%
 library(ggplot2)
 set.seed(1)
+shades <- c("#ecc8af", "#e7ad99", "#ce796b", "#c18c5d", "#495867")
 df <- data.frame(
   x = sample(1:10, size = 100, replace = TRUE),
   y = sample(1:10, size = 100, replace = TRUE),
   size = sample(1:10, size = 100, replace = TRUE),
-  shade = sample(colours(), size = 100, replace = TRUE)
+  shade = sample(shades, size = 100, replace = TRUE)
 )
 ggplot(df, aes(x, y, size = size, colour = shade)) +
   geom_point(show.legend = FALSE, pch = 1 , stroke = 2) + 
+  scale_colour_identity() +
   scale_size(range = c(0, 10)) + 
   theme_void()
 ```
@@ -235,6 +237,9 @@ In my `_includes` folder there is a single template file called `layout.liquid`,
         <div class="container">
             {{ content }}
         </div>
+
+        <!-- empty space at bottom -->
+        <div class="container u-pad-2"></div>
     </body>
 </html>
 ```
@@ -242,7 +247,7 @@ In my `_includes` folder there is a single template file called `layout.liquid`,
 
 You can see the basic structure of the html file here, and if you've had any experience editing the [hugo](https://gohugo.io/) layout files that are used to control how a blogdown site looks, this should seem very familiar. Fields specified within the curly braces, such as {% raw %}`{{ title }}`{% endraw %} are interpreted as placeholders, and when eleventy builds the site it replaces them with the relevant fields extracted from the markdown document. Technically though it's a different format. Eleventy supports several different templaying languages, but for this blog I'm using [liquid](https://shopify.github.io/liquid/).
 
-Okay, so where do these values come from? Some of these fields are supplied explicitly in the YAML header. For instance, this is the YAML header used in the current document:
+Okay, so where do these values come from? Some of these fields are supplied explicitly in the yaml header. For instance, this is the yaml header used in the current document:
 
 ```yaml
 ---
@@ -252,7 +257,7 @@ date: 2023-12-23
 ---
 ```
 
-At build time, eleventy reads these values and inserts them into the appropriate locations within the template to create the final document. But not everything is specified in the YAML. For example, the {% raw %}`{{ content }}`{% endraw %}) field isn't in the YAML header: that refers to the body of the markdown document (which is of course rendered as html by following the usual conventions for markdown). 
+At build time, eleventy reads these values and inserts them into the appropriate locations within the template to create the final document. But not everything is specified in the yaml. For example, the {% raw %}`{{ content }}`{% endraw %}) field isn't in the yaml header: that refers to the body of the markdown document (which is of course rendered as html by following the usual conventions for markdown). 
 
 A nice thing about the templating language is that you can use these fields in the markdown itself. For instance, if my markdown file uses the title field like this:
 
@@ -290,7 +295,7 @@ That's all that you have to do in order to get equations supported.
 
 ### Supporting social media tags
 
-Next, let's look at social media tags. For the purposes of this blog I kept it pretty simple. Every page on the site uses the same preview image, but it does have a custom title and description, which gets extracted from the `title` and `subtitle` fields in the YAML header. In the template it looks like this:
+Next, let's look at social media tags. For the purposes of this blog I kept it pretty simple. Every page on the site uses the same preview image, but it does have a custom title and description, which gets extracted from the `title` and `subtitle` fields in the yaml header. In the template it looks like this:
 
 {% raw %}
 ```html
@@ -322,7 +327,7 @@ But in the generated html it looks like this:
 <meta name="twitter:card" content="summary_large_image">
 ```
 
-In any case, you could of course go further than this and have a system like quarto which automatically finds an image to use as the preview if the user doesn't specify one, or a stripped down version that requires the user to specify an `image` field in the YAML, but I decided that spending any time on this would be breaking my "Bob Katter rule", and I am terribly concerned about the possibility I might be neglecting the threats posed by crocodiles in North Queensland. So let's move on. 
+In any case, you could of course go further than this and have a system like quarto which automatically finds an image to use as the preview if the user doesn't specify one, or a stripped down version that requires the user to specify an `image` field in the yaml, but I decided that spending any time on this would be breaking my "Bob Katter rule", and I am terribly concerned about the possibility I might be neglecting the threats posed by crocodiles in North Queensland. So let's move on. 
 
 ## The .eleventy.js configuration file
 
@@ -418,5 +423,72 @@ I've told it to ignore the `docs` folder, and also my GitHub `README.md` file, s
 
 ## Styling the pages with skeleton
 
-At this point we've covered almost everything that needs to be discussed about eleventy (at least for the purposes of this blog post). There's a few other things I need to mention but I'll come back to that later, because the last "big" topic to cover here is the css that controls the visual style of the blog. 
+At this point we've covered almost everything that needs to be discussed about eleventy (at least for the purposes of this blog post). There's a few other things I need to mention but I'll come back to that later, because the last "big" topic to cover here is the css that controls the visual style of the blog. In R markdown and quarto, this is handled using [bootstrap](https://getbootstrap.com/). Bootstrap is a powerful, full-featured css framework, I've used it in some of my own projects, and it's a perfectly sensible thing to use. However, I'm not going to use it here because bootstrap is finicky and takes effort. Using boostrap here would violate the Bob Katter principle. Instead, I'm going to use [skeleton](http://getskeleton.com/), an extremely minimal css-only framework. It's simple, clean, and requires very little effort. One downside is that it's not being maintained anymore (the last commit to the repo was in 2014) but at the same time it's simple enough that I'm pretty okay with using it as-is. I probably wouldn't use it for a blog I intended to run for a long time because actually I quite like a lot of the fancy bootstrap features, but this is a small side project and in this context skeleton is perfect. 
 
+In any case, here's what that entails. In total there are three css files to include: one is the `skeleton.css` file itself (only 400 lines of css), the second is is `normalize.css` (see [here](https://csstools.github.io/normalize.css/)), and the third is the `tweaks.css` file that I wrote to add a few minor customisations that I wanted. All of these files are stored in the root directory of my project, and (as mentioned earlier) there's a pass-through rule in my `.eleventy.js` file that ensures they are all copied to the `docs` folder when the site gets built. So then all I have to do is include this in the html header of my liquid template and I'm done:
+
+```html
+<!-- css -->
+<link rel="stylesheet" href="/normalize.css">
+<link rel="stylesheet" href="/skeleton.css">
+<link rel="stylesheet" href="/tweaks.css">
+```
+
+## A listing page for the blog
+
+The last thing that we need for the blog (actually one of the first things I did because it was covered in the simple tutorial to get started) is set up the home page, and configure it so that eleventy creates a reverse-chronological list of all the posts on the blog. In this case it was easier to write it as an `index.html` file in the root folder for the blog (rather than an `index.md` file). However, the file I wrote is not a complete html document, and is still interpreted by eleventy with the help of the template file. Anyway, here it is. It begins with a yaml header:
+
+```yaml
+---
+layout: layout.liquid
+title: An eleventy blog with knitr
+subtitle: A side project by Danielle Navarro
+---
+```
+
+It then supplies content, in html format rather than markdown:
+
+{% raw %}
+```html
+<img src="preview.jpg" width=200 style="border-radius:50%">
+
+<br><br>
+
+<ul>
+{% for post in collections.posts reversed %}
+    <li>
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+        <small>({{ post.date | date: "%Y-%m-%d" }})</small>
+    </li>
+{% endfor %}
+</ul>
+```
+{% endraw %}
+
+This time you can see a little more of the liquid templating language coming into play. The html in this document defines a list with one element per blog post. It contains a link to the relevant post, using the title field for that post as the text of the link, along with the post date.
+
+The key thing to note here is that this only works because all of the posts that I've written in this blog have a "posts" tag in the metadata. That's what enables eleventy to index the set of all posts with `collections.posts`. However, this might seem like a puzzle, because the yaml header for this post doesn't actually include any tags. There's something missing here, and the answer to this lies in the fact that my `posts` folder also includes a file called `posts.json`. Here it is:
+
+```json
+{
+    "layout": "layout.liquid",
+    "tags": ["posts"]
+}
+```
+
+This json file contains additional fields (in json format not yaml) that are applied to all posts in the `posts` folder. I could have done the same thing by including this in the yaml header for all my posts:
+
+```yaml
+layout: layout.liquid
+tags: ["posts"]
+```
+
+That would have the same effect.
+
+## Wrapping up
+
+Okay look. Let's be brutally honest here. This thing I cobbled together in an afternoon is absolutely not a meaningful replacement for the professional tooling provided by R markdown, quarto, blogdown etc. It's missing a tonne of important features that those tools provide and -- clearly -- it's a Rube Goldberg device that is stitched together with bits of string I found under the carpet. The constituent parts are perfectly sensible things: knitr is the primary tool that we all use in the R ecosystem for literate programming, and eleventy is a very, very good static site generator. The reason this is a "bad" blog is not that there's a problem with those tools, it's because I followed the Bob Katter principle and didn't spend any time on it. I chucked a few things together in an afternoon, spent another afternoon writing a blog post, and called it a day. If you want a properly-functioning system you have to put more effort into it than I did here.
+
+That being said, it was never my intention to build a properly-functioning system here. I wanted to learn a little bit about how you could go about building tools like R markdown, blogdown, and quarto. I also wanted to learn a little bit about eleventy, because I've been curious about it for a while. With respect to those goals, I think I did okay. 
+
+Mission. Fucking. Accomplished.

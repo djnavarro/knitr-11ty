@@ -65,6 +65,7 @@
 <li>Eighth step was to make sure that we have a passthrough rule that ensures that the knitr-generated png files are copied to the output, so we now update the <code>.eleventy.js</code> file to create a rule for png files</li>
 <li>Ninth step was to write a simple <code>render.sh</code> shell script that calls <code>knitr::knit()</code> to render a post from <code>.kmd</code> to <code>.md</code>. After a little bit of thought I decided that since (a) eleventy is very fast at rebuilding the website and (b) I've had bad experiences with tools that &quot;automatically&quot; decide when to re-render a source document, it makes sense not to automate the knit process for this toy project</li>
 <li>Tenth step was to edit the template to allow (minimal) support of social media tags</li>
+<li>Eleventh step was to add mathjax support</li>
 </ul>
 
         </div>
